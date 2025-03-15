@@ -1,0 +1,15 @@
+@use "./color.scss" as colors;
+@use "sass:color";
+
+.button-primary {
+    background-color: colors.$color-primary;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s ease;
+
+    &:hover {
+        background-color: color.adjust(colors.$color-primary, $lightness: -10%);
+    }
+}
