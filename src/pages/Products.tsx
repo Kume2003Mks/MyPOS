@@ -1,8 +1,9 @@
-import Styles from "../assets/styles/page.module.scss";
+import PageStyles from "../assets/styles/page.module.scss";
 import ElementStyles from "../assets/styles/styles.module.scss";
 
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import SearchBar from "../components/SearchBar/Searchbar";
 
 const Products = () => {
   const [search, setSearch] = useState("");
@@ -10,17 +11,16 @@ const Products = () => {
 
   return (
     <>
-      <div className={Styles.menu}>
-        <input
-          type="text"
-          placeholder="ค้นหาสินค้า..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+      <div className={PageStyles.menu}>
+        <SearchBar 
+        onChange={e => setSearch(e.target.value)} 
+        value={search}
+        placeholder="ค้นหา" />
         <button className={ElementStyles['button-primary']} onClick={() => navigate("/add-product")}>เพิ่มสินค้า</button>
       </div>
-      <section>
-        <table className={Styles.table}>
+      <section className={PageStyles['page-content']}>
+        <h1>{search}</h1>
+        <table className={PageStyles.table}>
           <thead>
             <tr>
               <th>รหัสสินค้า</th>

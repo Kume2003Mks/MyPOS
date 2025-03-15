@@ -7,6 +7,8 @@ import Layout from "./Layout/Layout";
 import Sale from "./pages/Sale";
 import History from "./pages/History";
 import Setting from "./pages/Setting";
+
+// App component that wraps all routes in the Layout component.
 function App() {
 
   return (

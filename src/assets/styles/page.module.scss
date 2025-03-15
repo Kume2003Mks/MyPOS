@@ -4,8 +4,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 16px;
     height: 60px;
     background-color: colors.$color-menubar;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.page-content {
+    padding: 16px;
+
 }
