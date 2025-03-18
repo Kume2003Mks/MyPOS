@@ -5,20 +5,25 @@ CREATE TABLE IF NOT EXISTS categories (
     description TEXT
 );
 
+-- เพิ่มหมวดหมู่เริ่มต้น
+INSERT INTO categories (id, name, description) VALUES
+    (1, 'General', 'เบ็ดเตล็ด');
+
 -- สร้างตารางสินค้า
 CREATE TABLE IF NOT EXISTS products (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     description TEXT,
-    category_id INTEGER,
+    cat_id INTEGER,
     barcode TEXT UNIQUE,
-    cost_price REAL NOT NULL,
-    selling_price REAL NOT NULL,
-    stock_quantity INTEGER NOT NULL DEFAULT 0,
-    image_path TEXT,
+    c_price REAL NOT NULL,
+    s_price REAL NOT NULL,
+    qty INTEGER NOT NULL DEFAULT 0,
+    img_path TEXT,
+    r_status TEXT NOT NULL DEFAULT 'active',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE SET NULL
+    FOREIGN KEY (cat_id) REFERENCES categories (id) ON DELETE SET NULL
 );
 
 -- สร้างตารางสิทธิ์การใช้งาน
@@ -27,6 +32,14 @@ CREATE TABLE IF NOT EXISTS roles (
     name TEXT NOT NULL UNIQUE,
     description TEXT
 );
+
+-- เพิ่มข้อมูลบทบาทเริ่มต้น
+INSERT INTO roles (id, name, description) VALUES
+    (1, 'Admin', 'System administrator with full access to all features and settings'),
+    (2, 'Manager', 'Responsible for overseeing sales, inventory, and staff operations'),
+    (3, 'Accountant', 'Manages financial records, transactions, and reporting'),
+    (4, 'Stock', 'Manages warehouse stock, including restocking and inventory tracking'),
+    (5, 'Cashier', 'Handles sales transactions and customer payments at the point of sale');
 
 -- สร้างตารางผู้ใช้งาน
 CREATE TABLE IF NOT EXISTS users (
@@ -46,7 +59,7 @@ CREATE TABLE IF NOT EXISTS customers (
     full_name TEXT NOT NULL,
     phone TEXT UNIQUE,
     email TEXT UNIQUE,
-    address TEXT,
+    addr TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -54,35 +67,35 @@ CREATE TABLE IF NOT EXISTS customers (
 CREATE TABLE IF NOT EXISTS sales (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER,
-    customer_id INTEGER,
-    total_amount REAL NOT NULL,
-    discount_amount REAL NOT NULL DEFAULT 0,
+    cust_id INTEGER,
+    total REAL NOT NULL,
+    discount REAL NOT NULL DEFAULT 0,
     note TEXT,
-    payment_method TEXT NOT NULL,
+    pay_method TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL,
-    FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE SET NULL
+    FOREIGN KEY (cust_id) REFERENCES customers (id) ON DELETE SET NULL
 );
 
 -- สร้างตารางรายการสินค้าในบิล
 CREATE TABLE IF NOT EXISTS sale_items (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     sale_id INTEGER,
-    product_id INTEGER,
-    quantity INTEGER NOT NULL CHECK (quantity > 0),
-    unit_price REAL NOT NULL,
-    total_price REAL NOT NULL,
+    prod_id INTEGER,
+    qty INTEGER NOT NULL CHECK (qty > 0),
+    u_price REAL NOT NULL,
+    t_price REAL NOT NULL,
     FOREIGN KEY (sale_id) REFERENCES sales (id) ON DELETE SET NULL,
-    FOREIGN KEY (product_id) REFERENCES products (id) ON DELETE SET NULL
+    FOREIGN KEY (prod_id) REFERENCES products (id) ON DELETE SET NULL
 );
 
 -- สร้างตารางข้อมูลการชำระเงิน
 CREATE TABLE IF NOT EXISTS payments (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     sale_id INTEGER,
-    amount_paid REAL NOT NULL,
-    change_given REAL NOT NULL,
-    payment_method TEXT NOT NULL,
+    paid REAL NOT NULL,
+    change REAL NOT NULL,
+    pay_method TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (sale_id) REFERENCES sales (id) ON DELETE SET NULL
 );

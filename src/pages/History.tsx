@@ -1,7 +1,14 @@
+import { useAuth } from "../hooks/useAuth"
 
 const History = () => {
+  const { logout } = useAuth();
   return (
-    <div>History</div>
+    <div>
+      History
+      <hr />
+      <button onClick={logout}>Logout</button>
+
+    </div>
   )
 }
 
