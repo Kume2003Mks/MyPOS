@@ -1,18 +1,22 @@
 import { NavLink } from "react-router";
-import { FaTachometerAlt, FaShoppingCart, FaBox, FaCog, FaHistory } from "react-icons/fa";
+import { FaTachometerAlt, FaShoppingCart, FaBox, FaCog, FaHistory, FaSignOutAlt } from "react-icons/fa";
 import Styles from "./Navigation.module.scss";
+import { useAuth } from "../../hooks/useAuth";
 
 //create data object for navigation
 const navItems = [
-    { to: "/", label: "Dashboard", icon: <FaTachometerAlt /> },
-    { to: "/sales", label: "Sales", icon: <FaShoppingCart /> },
-    { to: "/products", label: "Products", icon: <FaBox /> },
-    { to: "/history", label: "History", icon: <FaHistory /> },
+    { to: "/", label: "สรุป", icon: <FaTachometerAlt /> },
+    { to: "/sales", label: "ขายสินค้า", icon: <FaShoppingCart /> },
+    { to: "/products", label: "รายการสินค้า", icon: <FaBox /> },
+    { to: "/history", label: "ประวัติ", icon: <FaHistory /> },
     //{ to: "/customers", label: "Customers", icon: <FaUsers /> },
-    { to: "/settings", label: "Settings", icon: <FaCog /> },
+    { to: "/settings", label: "ตั้งค่าระบบ", icon: <FaCog /> },
 ];
 
 const Navigation = () => {
+
+    const { logout } = useAuth();
+
     return (
         <nav className={Styles.sidebar}>
             <h1>POS System</h1>
@@ -30,6 +34,12 @@ const Navigation = () => {
                     </li>
                 ))}
             </ul>
+            <button onClick={logout}>
+                <FaSignOutAlt />
+                <p>
+                    ออกจากระบบ
+                </p>
+            </button>
         </nav>
     );
 }

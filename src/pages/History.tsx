@@ -1,12 +1,20 @@
-import { useAuth } from "../hooks/useAuth"
+import { useEffect } from "react"
+import { appDataDir } from '@tauri-apps/api/path';
+
 
 const History = () => {
-  const { logout } = useAuth();
+  useEffect(() => {
+    document.title = "History - POS System"
+    const f = async () => {
+      console.log(await appDataDir())
+    };
+    f();
+  }
+    , [])
   return (
     <div>
       History
       <hr />
-      <button onClick={logout}>Logout</button>
 
     </div>
   )

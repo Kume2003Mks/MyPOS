@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { UserController } from '../lib/UserController';
+
+import PageStyle from '../assets/styles/page.module.scss';
+import FormStyle from '../assets/styles/form.module.scss';
 
 const Login = () => {
   const { login } = useAuth();
@@ -55,49 +58,54 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <h2>เข้าสู่ระบบ</h2>
-      {error && <div className="error-message">{error}</div>}
+    <main className={PageStyle["page-auth-container"]}>
+      <section className={FormStyle["auth-container"]}>
+        <h2>เข้าสู่ระบบ</h2>
+        {error && <div className="error-message">{error}</div>}
 
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>อีเมล:</label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        <form onSubmit={handleSubmit} className={FormStyle["auth-form"]}>
+          <div className={FormStyle["form-group"]}>
+            <label>ชื่อผู้ใช้</label>
+            <input
+              type="text"
+              name="username"
+              placeholder="ระบุชื่อผู้ใช้"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <label>รหัสผ่าน:</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          <div className={FormStyle["form-group"]}>
+            <label>รหัสผ่าน</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="รหัสผ่าน"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          className={isLoading ? 'loading' : ''}
-        >
-          {isLoading ? 'กำลังเข้าสู่ระบบ...' : 'เข้าสู่ระบบ'}
-        </button>
-      </form>
+          <button
+            type="submit"
+            disabled={isLoading}
+            className={isLoading ? 'loading' : ''}
+          >
+            {isLoading ? 'กำลังเข้าสู่ระบบ...' : 'เข้าสู่ระบบ'}
+          </button>
+        </form>
 
-      {!hasUsers &&
-        <div className="register-link">
-          ยังไม่มีบัญชี? <a href="/registor">สมัครสมาชิก</a>
-        </div>
-      }
+        {!hasUsers &&
+          <div className={FormStyle["register-link"]}>
+            ยังไม่มีบัญชี <Link to="/registor">สร้างผู้ใช้</Link>
+          </div>
+        }
 
-    </div>
+      </section>
+    </main>
+
   );
 };
 

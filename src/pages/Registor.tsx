@@ -4,6 +4,9 @@ import { Role } from '../types/type';
 import { UserController } from '../lib/UserController';
 import { useAuth } from '../hooks/useAuth';
 
+import PageStyle from '../assets/styles/page.module.scss';
+import FormStyle from '../assets/styles/form.module.scss';
+
 const Register: React.FC = () => {
     const { register } = useAuth();
     const navigate = useNavigate();
@@ -79,24 +82,15 @@ const Register: React.FC = () => {
     };
 
     return (
-        <div className="register-container">
-            <h2>{hasUsers ? 'เพิ่มสมาชิกใหม่' : 'สร้างผู้ดูแลระบบ'}</h2>
+        <main className={PageStyle["page-auth-container"]}>
+        <section className={FormStyle["auth-container"]}>
+            <h2>{hasUsers ? 'เพิ่มผู้ใช้' : 'สร้างผู้ดูแลระบบ'}</h2>
             {error && <div className="error-message">{error}</div>}
 
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label>ชื่อเต็ม:</label>
-                    <input
-                        type="text"
-                        name="full_name"
-                        value={formData.full_name}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+            <form onSubmit={handleSubmit} className={FormStyle["auth-form"]}>
 
-                <div className="form-group">
-                    <label>ชื่อผู้ใช้:</label>
+                <div className={FormStyle["form-group"]}>
+                    <label>ชื่อผู้ใช้</label>
                     <input
                         type="text"
                         name="username"
@@ -106,8 +100,19 @@ const Register: React.FC = () => {
                     />
                 </div>
 
-                <div className="form-group">
-                    <label>รหัสผ่าน:</label>
+                <div className={FormStyle["form-group"]}>
+                    <label>ชื่อเต็ม</label>
+                    <input
+                        type="text"
+                        name="full_name"
+                        value={formData.full_name}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+
+                <div className={FormStyle["form-group"]}>
+                    <label>รหัสผ่าน</label>
                     <input
                         type="password"
                         name="password"
@@ -117,8 +122,8 @@ const Register: React.FC = () => {
                     />
                 </div>
 
-                <div className="form-group">
-                    <label>ยืนยันรหัสผ่าน:</label>
+                <div className={FormStyle["form-group"]}>
+                    <label>ยืนยันรหัสผ่าน</label>
                     <input
                         type="password"
                         name="confirmPassword"
@@ -129,8 +134,8 @@ const Register: React.FC = () => {
                 </div>
 
                 {roles.length > 0 && (
-                    <div className="form-group">
-                        <label>บทบาท:</label>
+                    <div className={FormStyle["form-group"]}>
+                        <label>บทบาท</label>
                         <select
                             name="role_id"
                             value={formData.role_id}
@@ -156,7 +161,8 @@ const Register: React.FC = () => {
             </form>
             {hasUsers && <Link to='/'>ย้อนกลับ</Link>}
             
-        </div>
+        </section>
+        </main>
     );
 };
 

@@ -7,21 +7,28 @@ export class UserController {
     private db: Database | null = null;
 
     constructor() {
-        this.initDB();
+        // empty constructor
     }
 
     private async initDB() {
-        if (!this.db) {
-            this.db = await Database.load("sqlite:database.db");
+        try {
+            if (!this.db) {
+                this.db = await Database.load("sqlite:database.db");
+            }
+        } catch (error) {
+            console.error("Failed to initialize database:", error);
+            throw new Error("Database initialization failed");
         }
     }
 
     // **สมัครสมาชิก (Register)**
     async register(userData: CreateUserDto): Promise<boolean> {
-        await this.initDB();
         try {
+            await this.initDB();
             const { username, password, full_name, role_id } = userData;
-
+            if (!this.db) {
+                throw new Error("Database not initialized");
+            }
             // ตรวจสอบว่ามี username ซ้ำหรือไม่
             const existingUser = await this.db!.select<{ count: number }[]>(
                 "SELECT COUNT(*) as count FROM users WHERE username = ?",
@@ -54,8 +61,8 @@ export class UserController {
 
     // **เข้าสู่ระบบ (Login)**
     async login(username: string, password: string): Promise<boolean> {
-        await this.initDB();
         try {
+            await this.initDB();
             const users = await this.db!.select<User[]>(
                 "SELECT * FROM users WHERE username = ?",
                 [username]
@@ -111,9 +118,9 @@ export class UserController {
 
     // **อัปเดตข้อมูลผู้ใช้**
     async updateUser(userId: number, updateData: UpdateUserDto): Promise<boolean> {
-        await this.initDB();
-
+        
         try {
+            await this.initDB();
             // ตรวจสอบว่า user มีอยู่หรือไม่
             const existingUser = await this.db!.select<{ count: number }[]>(
                 "SELECT COUNT(*) as count FROM users WHERE id = ?",
@@ -192,8 +199,8 @@ export class UserController {
 
     // **ลบผู้ใช้**
     async deleteUser(userId: number): Promise<boolean> {
-        await this.initDB();
         try {
+            await this.initDB();
             await this.db!.execute("DELETE FROM users WHERE id = ?", [userId]);
             return true;
         } catch (err) {
@@ -203,8 +210,8 @@ export class UserController {
     }
 
     async hasUsers(): Promise<boolean> {
-        await this.initDB();
         try {
+            await this.initDB();
             const result = await this.db!.select<{ count: number }[]>(
                 "SELECT COUNT(*) as count FROM users"
             );
@@ -216,8 +223,8 @@ export class UserController {
     }
 
     async getRoles(): Promise<Role[]> {
-        await this.initDB();
         try {
+            await this.initDB();
             return await this.db!.select("SELECT * FROM roles");
         } catch (err) {
             console.error("Error fetching roles:", err);

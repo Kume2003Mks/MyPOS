@@ -25,6 +25,17 @@ export type UpdateProductDto = Partial<CreateProductDto>;
 export type CreateRoleDto = {
     name: string;
     description?: string;
+    create_prod: boolean;
+    read_prod: boolean;
+    update_prod: boolean;
+    delete_prod: boolean;
+    create_sale: boolean;
+    read_sale: boolean;
+    update_sale: boolean;
+    delete_sale: boolean;
+    db_access: boolean;
+    role_access: boolean;
+    user_access: boolean;
 };
 
 export type UpdateRoleDto = Partial<CreateRoleDto>;

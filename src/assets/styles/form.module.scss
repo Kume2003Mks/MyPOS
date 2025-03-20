@@ -1,0 +1,52 @@
+@use "./color.scss" as colors;
+@use "sass:color";
+
+$form-padding: 2rem 3rem;
+
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 35%;
+    height: min-content;
+    padding: $form-padding;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    box-shadow: colors.$shadow-box;
+}
+
+.auth-form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+
+    & button {
+        background-color: colors.$color-primary;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: 0.3s ease;
+
+        &:hover {
+            background-color: color.adjust(colors.$color-primary, $lightness: -10%);
+        }
+    }
+}
+
+.register-link {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: small;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+
+    & label {
+        font-size: small;
+    }
+}

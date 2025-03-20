@@ -13,7 +13,7 @@
     h1 {
         font-size: 1.5rem;
         text-align: center;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
     }
 
     ul {
@@ -22,7 +22,7 @@
         margin: 0;
 
         li {
-            margin: 10px 0;
+            margin: 8px 0;
 
             a {
                 color: map.get(colors.$navigation-colors, secondary);
@@ -30,8 +30,8 @@
                 font-size: 1.1rem;
                 display: flex;
                 align-items: center;
-                gap: 10px;
-                padding: 10px;
+                gap: 8px;
+                padding: 8px;
                 border-radius: 5px;
                 transition: 0.3s ease;
 
@@ -39,6 +39,26 @@
                     background: map.get(colors.$navigation-colors, is-hover);
                 }
             }
+        }
+    }
+
+    button {
+        display: flex;
+        width: 100%;
+        align-self: center;
+        align-items: center;
+        font-size: 1.1rem;
+        gap: 8px;
+        margin-top: auto; /* Pushes the button to the bottom */
+        padding: 8px 15px;
+        background-color: map.get(colors.$navigation-colors, primary);
+        color: white;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: map.get(colors.$navigation-colors, is-hover);
         }
     }
 }

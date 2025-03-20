@@ -26,6 +26,17 @@ export type Role = {
     id: number;
     name: string;
     description?: string;
+    create_prod: boolean; // สิทธิ์การสร้างสินค้า
+    read_prod: boolean;   // สิทธิ์การดูสินค้า
+    update_prod: boolean; // สิทธิ์การแก้ไขสินค้า
+    delete_prod: boolean; // สิทธิ์การลบสินค้า
+    create_sale: boolean; // สิทธิ์การสร้างการขาย
+    read_sale: boolean;   // สิทธิ์การดูการขาย
+    update_sale: boolean; // สิทธิ์การแก้ไขการขาย
+    delete_sale: boolean; // สิทธิ์การลบการขาย
+    db_access: boolean;   // สิทธิ์การเข้าถึงฐานข้อมูล
+    role_access: boolean; // สิทธิ์การเข้าถึงบทบาท
+    user_access: boolean; // สิทธิ์การเข้าถึงผู้ใช้
 };
 
 // ผู้ใช้งาน

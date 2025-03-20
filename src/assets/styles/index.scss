@@ -17,9 +17,32 @@ body {
     font-weight: 400; // Default weight
   }
 
+//default button style
 button {
     font-family: 'Noto Sans Thai', sans-serif;
     font-weight: 400;
     cursor: pointer;
     border: none;
+}
+
+//default input style
+input {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-weight: 400;
+    border: 1px solid #ccc;
+    outline: none;
+    padding: 4px;
+    border-radius: 4px;
+    background: none;
+}
+
+//default select style
+select {
+    font-family: 'Noto Sans Thai', sans-serif;
+    font-weight: 400;
+    border: 1px solid #ccc;
+    outline: none;
+    padding: 4px;
+    border-radius: 4px;
+    background: none;
 }

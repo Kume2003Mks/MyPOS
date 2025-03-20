@@ -36,6 +36,7 @@ const Sale: React.FC = () => {
           {roles.map((role) => (
             <li key={role.id}>
               <strong>{role.name}</strong>: {role.description}
+              <strong>{role.db_access}</strong>
             </li>
           ))}
         </ul>
